@@ -1,0 +1,20 @@
+From ubuntu:18.04
+
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install python3.6 wget -y
+WORKDIR our_env/
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN chmod +777 ./Miniconda3-latest-Linux-x86_64.sh
+
+RUN yes "yes" | ./Miniconda3-latest-Linux-x86_64.sh -yes
+ADD ./face-detection.yml .
+RUN yes/bin/conda env create -f face-detection.yml
+RUN yes/bin/conda init bash
+RUN . ~/.bashrc
+
+WORKDIR workspace/
+# RUN jupyter notebook
+RUN . ../yes/bin/activate face-detection
+ENTRYPOINT ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser"]
+
+# CMD [ "jupyter","notebook" ]
