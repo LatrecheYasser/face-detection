@@ -4,3 +4,6 @@ torch
 torchvision
 pandas==0.25.1
 jupyter
+seaborn
+scipy
+missingno
